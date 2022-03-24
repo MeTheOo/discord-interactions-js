@@ -28,7 +28,8 @@
     "build:watch": "tsc --watch",
     "format": "eslint --fix '**/*.ts' '**/*.js'",
     "lint": "eslint '**/*.ts' '**/*.js'",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "start": "node examples/express_app.js"
   },
   "dependencies": {
     "tweetnacl": "^1.0.3"
