@@ -149,17 +149,9 @@ function verifyKey(
     const signatureData = valueToUint8Array(signature, 'hex');
     const publicKeyData = valueToUint8Array(clientPublicKey, 'hex');
     console.log("------------");
-    console.log("timestampdata");
-    console.log(timestampData);
     console.log("bodydata");
     console.log(body);
     console.log(bodyData);
-    console.log("message");
-    console.log(message);
-    console.log("signatureData");
-    console.log(signatureData);
-    console.log("publicKeyData");
-    console.log(publicKeyData);
     console.log("------------");
     return nacl.sign.detached.verify(message, signatureData, publicKeyData);
   } catch (ex) {
@@ -190,8 +182,6 @@ function verifyKeyMiddleware(clientPublicKey: string): (req: Request, res: Respo
       console.log(clientPublicKey);
       console.log(timestamp);
       console.log(signature);
-      console.log("RawBody");
-      console.log(rawBody);
       if (!verifyKey(rawBody, signature, timestamp, clientPublicKey)) 
       {
         console.error("[discord-interactions] Invalid signature");
