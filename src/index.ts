@@ -166,11 +166,17 @@ function verifyKeyMiddleware(clientPublicKey: string): (req: Request, res: Respo
     throw new Error('You must specify a Discord client public key');
   }
 
-  return function (req: Request, res: Response, next: NextFunction) {
+  return function (req: Request, res: Response, next: NextFunction) 
+  {
     const timestamp = (req.header('X-Signature-Timestamp') || '') as string;
     const signature = (req.header('X-Signature-Ed25519') || '') as string;
-
-    function onBodyComplete(rawBody: Buffer) {
+    
+    function onBodyComplete(rawBody: Buffer)
+    {
+      console.log(clientPublicKey);
+      console.log(timestamp);
+      console.log(signature);
+      console.log(rawBody);
       if (!verifyKey(rawBody, signature, timestamp, clientPublicKey)) {
         res.statusCode = 401;
         res.end('[discord-interactions] Invalid signature');
