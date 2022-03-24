@@ -3,7 +3,7 @@ const { InteractionType, InteractionResponseType, verifyKeyMiddleware } = requir
 
 const app = express();
 
-app.post('/interactions', verifyKeyMiddleware(process.env.CLIENT_PUBLIC_KEY), (req, res) => {
+app.post('/interactions', verifyKeyMiddleware("38fcfd13604c251410c8d31f3bf06a9bc78fb50b012a99ff35717ed16d81b465"), (req, res) => {
   const interaction = req.body;
   if (interaction.type === InteractionType.APPLICATION_COMMAND) {
     res.send({
