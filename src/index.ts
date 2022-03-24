@@ -148,6 +148,13 @@ function verifyKey(
 
     const signatureData = valueToUint8Array(signature, 'hex');
     const publicKeyData = valueToUint8Array(clientPublicKey, 'hex');
+    console.log("------------");
+    console.log(timestampData);
+    console.log(bodyData);
+    console.log(message);
+    console.log(signatureData);
+    console.log(publicKeyData);
+    console.log("------------");
     return nacl.sign.detached.verify(message, signatureData, publicKeyData);
   } catch (ex) {
     console.error('[discord-interactions]: Invalid verifyKey parameters', ex);
@@ -177,13 +184,16 @@ function verifyKeyMiddleware(clientPublicKey: string): (req: Request, res: Respo
       console.log(timestamp);
       console.log(signature);
       console.log(rawBody);
-      if (!verifyKey(rawBody, signature, timestamp, clientPublicKey)) {
+      if (!verifyKey(rawBody, signature, timestamp, clientPublicKey)) 
+      {
+        console.error("[discord-interactions] Invalid signature");
         res.statusCode = 401;
         res.end('[discord-interactions] Invalid signature');
         return;
       }
-
+      console.log("Signature ok");
       const body = JSON.parse(rawBody.toString('utf-8')) || {};
+      console.log(body);
       if (body.type === InteractionType.PING) {
         res.setHeader('Content-Type', 'application/json');
         res.end(
