@@ -1,5 +1,6 @@
 const express = require('express');
 const { InteractionType, InteractionResponseType, verifyKeyMiddleware } = require('../dist');
+const PORT = process.env.PORT || 5000
 
 const app = express();
 
@@ -15,6 +16,6 @@ app.post('/interactions', verifyKeyMiddleware("38fcfd13604c251410c8d31f3bf06a9bc
   }
 });
 
-app.listen(8999, () => {
-  console.log('Example app listening at http://localhost:8999');
+app.listen(PORT, () => {
+  console.log('Example app listening at ' + PORT);
 });
